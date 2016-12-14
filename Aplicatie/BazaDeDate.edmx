@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BazaDeDate.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BazaDeDateStoreContainer">
+    <EntitySet Name="Incasari" EntityType="BazaDeDate.Store.Incasari" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CategVenit" EntityType="BazaDeDate.Store.CategVenit" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LocalizareVenit" EntityType="BazaDeDate.Store.LocalizareVenit" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Plati" EntityType="BazaDeDate.Store.Plati" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CategChelt" EntityType="BazaDeDate.Store.CategChelt" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CategVenitIncasari" Association="BazaDeDate.Store.CategVenitIncasari">
+      <End Role="CategVenit" EntitySet="CategVenit" />
+      <End Role="Incasari" EntitySet="Incasari" />
+    </AssociationSet>
+    <AssociationSet Name="CategVenitLocalizareVenit" Association="BazaDeDate.Store.CategVenitLocalizareVenit">
+      <End Role="CategVenit" EntitySet="CategVenit" />
+      <End Role="LocalizareVenit" EntitySet="LocalizareVenit" />
+    </AssociationSet>
+    <AssociationSet Name="LocalizareVenitPlati" Association="BazaDeDate.Store.LocalizareVenitPlati">
+      <End Role="LocalizareVenit" EntitySet="LocalizareVenit" />
+      <End Role="Plati" EntitySet="Plati" />
+    </AssociationSet>
+    <AssociationSet Name="CategCheltPlati" Association="BazaDeDate.Store.CategCheltPlati">
+      <End Role="CategChelt" EntitySet="CategChelt" />
+      <End Role="Plati" EntitySet="Plati" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Incasari">
+    <Key>
+      <PropertyRef Name="IdIncasare" />
+    </Key>
+    <Property Name="IdIncasare" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Data" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Suma" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CategVenitIdCategVenit" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CategVenit">
+    <Key>
+      <PropertyRef Name="IdCategVenit" />
+    </Key>
+    <Property Name="IdCategVenit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DescriereVenit" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LocalizareVenitIdLocalizareVenit" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LocalizareVenit">
+    <Key>
+      <PropertyRef Name="IdLocalizareVenit" />
+    </Key>
+    <Property Name="IdLocalizareVenit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descriere" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TipBani" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CategVenitIdCategVenit" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Plati">
+    <Key>
+      <PropertyRef Name="IdPlata" />
+    </Key>
+    <Property Name="IdPlata" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descriere" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Suma" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DataT" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LocalizareVenitIdLocalizareVenit" Type="int" Nullable="false" />
+    <Property Name="CategCheltIdCategChelt" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CategChelt">
+    <Key>
+      <PropertyRef Name="IdCategChelt" />
+    </Key>
+    <Property Name="IdCategChelt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descriere" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="CategVenitIncasari">
+    <End Role="CategVenit" Type="BazaDeDate.Store.CategVenit" Multiplicity="1" />
+    <End Role="Incasari" Type="BazaDeDate.Store.Incasari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategVenit">
+        <PropertyRef Name="IdCategVenit" />
+      </Principal>
+      <Dependent Role="Incasari">
+        <PropertyRef Name="CategVenitIdCategVenit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CategVenitLocalizareVenit">
+    <End Role="CategVenit" Type="BazaDeDate.Store.CategVenit" Multiplicity="*" />
+    <End Role="LocalizareVenit" Type="BazaDeDate.Store.LocalizareVenit" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="LocalizareVenit">
+        <PropertyRef Name="IdLocalizareVenit" />
+      </Principal>
+      <Dependent Role="CategVenit">
+        <PropertyRef Name="LocalizareVenitIdLocalizareVenit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LocalizareVenitPlati">
+    <End Role="LocalizareVenit" Type="BazaDeDate.Store.LocalizareVenit" Multiplicity="1" />
+    <End Role="Plati" Type="BazaDeDate.Store.Plati" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LocalizareVenit">
+        <PropertyRef Name="IdLocalizareVenit" />
+      </Principal>
+      <Dependent Role="Plati">
+        <PropertyRef Name="LocalizareVenitIdLocalizareVenit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CategCheltPlati">
+    <End Role="CategChelt" Type="BazaDeDate.Store.CategChelt" Multiplicity="1" />
+    <End Role="Plati" Type="BazaDeDate.Store.Plati" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategChelt">
+        <PropertyRef Name="IdCategChelt" />
+      </Principal>
+      <Dependent Role="Plati">
+        <PropertyRef Name="CategCheltIdCategChelt" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BazaDeDate" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="BazaDeDateContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Incasari" EntityType="BazaDeDate.Incasari" />
+          <EntitySet Name="CategVenit" EntityType="BazaDeDate.CategVenit" />
+          <EntitySet Name="LocalizareVenit" EntityType="BazaDeDate.LocalizareVenit" />
+          <EntitySet Name="Plati" EntityType="BazaDeDate.Plati" />
+          <EntitySet Name="CategChelt" EntityType="BazaDeDate.CategChelt" />
+          <AssociationSet Name="CategVenitIncasari" Association="BazaDeDate.CategVenitIncasari">
+            <End Role="CategVenit" EntitySet="CategVenit" />
+            <End Role="Incasari" EntitySet="Incasari" />
+          </AssociationSet>
+          <AssociationSet Name="CategVenitLocalizareVenit" Association="BazaDeDate.CategVenitLocalizareVenit">
+            <End Role="CategVenit" EntitySet="CategVenit" />
+            <End Role="LocalizareVenit" EntitySet="LocalizareVenit" />
+          </AssociationSet>
+          <AssociationSet Name="LocalizareVenitPlati" Association="BazaDeDate.LocalizareVenitPlati">
+            <End Role="LocalizareVenit" EntitySet="LocalizareVenit" />
+            <End Role="Plati" EntitySet="Plati" />
+          </AssociationSet>
+          <AssociationSet Name="CategCheltPlati" Association="BazaDeDate.CategCheltPlati">
+            <End Role="CategChelt" EntitySet="CategChelt" />
+            <End Role="Plati" EntitySet="Plati" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Incasari">
+          <Key>
+            <PropertyRef Name="IdIncasare" />
+          </Key>
+          <Property Name="IdIncasare" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data" Type="String" Nullable="false" />
+          <Property Name="Suma" Type="String" Nullable="false" />
+          <NavigationProperty Name="CategVenit" Relationship="BazaDeDate.CategVenitIncasari" FromRole="Incasari" ToRole="CategVenit" />
+          <Property Name="CategVenitIdCategVenit" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategVenit">
+          <Key>
+            <PropertyRef Name="IdCategVenit" />
+          </Key>
+          <Property Name="IdCategVenit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriereVenit" Type="String" Nullable="false" />
+          <NavigationProperty Name="Incasaris" Relationship="BazaDeDate.CategVenitIncasari" FromRole="CategVenit" ToRole="Incasari" />
+          <NavigationProperty Name="LocalizareVenit" Relationship="BazaDeDate.CategVenitLocalizareVenit" FromRole="CategVenit" ToRole="LocalizareVenit" />
+          <Property Name="LocalizareVenitIdLocalizareVenit" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LocalizareVenit">
+          <Key>
+            <PropertyRef Name="IdLocalizareVenit" />
+          </Key>
+          <Property Name="IdLocalizareVenit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descriere" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>Se vor descrie conturile bancare deschise de catre student, sau banii cash</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="TipBani" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>cash sau bancar</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="CategVenitIdCategVenit" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CategVenits" Relationship="BazaDeDate.CategVenitLocalizareVenit" FromRole="LocalizareVenit" ToRole="CategVenit" />
+          <NavigationProperty Name="Platis" Relationship="BazaDeDate.LocalizareVenitPlati" FromRole="LocalizareVenit" ToRole="Plati" />
+        </EntityType>
+        <EntityType Name="Plati">
+          <Key>
+            <PropertyRef Name="IdPlata" />
+          </Key>
+          <Property Name="IdPlata" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descriere" Type="String" Nullable="false" />
+          <Property Name="Suma" Type="String" Nullable="false" />
+          <Property Name="DataT" Type="String" Nullable="false" />
+          <NavigationProperty Name="LocalizareVenit" Relationship="BazaDeDate.LocalizareVenitPlati" FromRole="Plati" ToRole="LocalizareVenit" />
+          <Property Name="LocalizareVenitIdLocalizareVenit" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CategChelt" Relationship="BazaDeDate.CategCheltPlati" FromRole="Plati" ToRole="CategChelt" />
+          <Property Name="CategCheltIdCategChelt" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategChelt">
+          <Key>
+            <PropertyRef Name="IdCategChelt" />
+          </Key>
+          <Property Name="IdCategChelt" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descriere" Type="String" Nullable="false" />
+          <NavigationProperty Name="Platis" Relationship="BazaDeDate.CategCheltPlati" FromRole="CategChelt" ToRole="Plati" />
+        </EntityType>
+        <Association Name="CategVenitIncasari">
+          <End Type="BazaDeDate.CategVenit" Role="CategVenit" Multiplicity="1" />
+          <End Type="BazaDeDate.Incasari" Role="Incasari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategVenit">
+              <PropertyRef Name="IdCategVenit" />
+            </Principal>
+            <Dependent Role="Incasari">
+              <PropertyRef Name="CategVenitIdCategVenit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CategVenitLocalizareVenit">
+          <End Type="BazaDeDate.CategVenit" Role="CategVenit" Multiplicity="*" />
+          <End Type="BazaDeDate.LocalizareVenit" Role="LocalizareVenit" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="LocalizareVenit">
+              <PropertyRef Name="IdLocalizareVenit" />
+            </Principal>
+            <Dependent Role="CategVenit">
+              <PropertyRef Name="LocalizareVenitIdLocalizareVenit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LocalizareVenitPlati">
+          <End Type="BazaDeDate.LocalizareVenit" Role="LocalizareVenit" Multiplicity="1" />
+          <End Type="BazaDeDate.Plati" Role="Plati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocalizareVenit">
+              <PropertyRef Name="IdLocalizareVenit" />
+            </Principal>
+            <Dependent Role="Plati">
+              <PropertyRef Name="LocalizareVenitIdLocalizareVenit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CategCheltPlati">
+          <End Type="BazaDeDate.CategChelt" Role="CategChelt" Multiplicity="1" />
+          <End Type="BazaDeDate.Plati" Role="Plati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategChelt">
+              <PropertyRef Name="IdCategChelt" />
+            </Principal>
+            <Dependent Role="Plati">
+              <PropertyRef Name="CategCheltIdCategChelt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BazaDeDateStoreContainer" CdmEntityContainer="BazaDeDateContainer">
+    <EntitySetMapping Name="Incasari">
+      <EntityTypeMapping TypeName="IsTypeOf(BazaDeDate.Incasari)">
+        <MappingFragment StoreEntitySet="Incasari">
+          <ScalarProperty Name="IdIncasare" ColumnName="IdIncasare" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="Suma" ColumnName="Suma" />
+          <ScalarProperty Name="CategVenitIdCategVenit" ColumnName="CategVenitIdCategVenit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategVenit">
+      <EntityTypeMapping TypeName="IsTypeOf(BazaDeDate.CategVenit)">
+        <MappingFragment StoreEntitySet="CategVenit">
+          <ScalarProperty Name="IdCategVenit" ColumnName="IdCategVenit" />
+          <ScalarProperty Name="DescriereVenit" ColumnName="DescriereVenit" />
+          <ScalarProperty Name="LocalizareVenitIdLocalizareVenit" ColumnName="LocalizareVenitIdLocalizareVenit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LocalizareVenit">
+      <EntityTypeMapping TypeName="IsTypeOf(BazaDeDate.LocalizareVenit)">
+        <MappingFragment StoreEntitySet="LocalizareVenit">
+          <ScalarProperty Name="IdLocalizareVenit" ColumnName="IdLocalizareVenit" />
+          <ScalarProperty Name="Descriere" ColumnName="Descriere" />
+          <ScalarProperty Name="TipBani" ColumnName="TipBani" />
+          <ScalarProperty Name="CategVenitIdCategVenit" ColumnName="CategVenitIdCategVenit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Plati">
+      <EntityTypeMapping TypeName="IsTypeOf(BazaDeDate.Plati)">
+        <MappingFragment StoreEntitySet="Plati">
+          <ScalarProperty Name="IdPlata" ColumnName="IdPlata" />
+          <ScalarProperty Name="Descriere" ColumnName="Descriere" />
+          <ScalarProperty Name="Suma" ColumnName="Suma" />
+          <ScalarProperty Name="DataT" ColumnName="DataT" />
+          <ScalarProperty Name="LocalizareVenitIdLocalizareVenit" ColumnName="LocalizareVenitIdLocalizareVenit" />
+          <ScalarProperty Name="CategCheltIdCategChelt" ColumnName="CategCheltIdCategChelt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategChelt">
+      <EntityTypeMapping TypeName="IsTypeOf(BazaDeDate.CategChelt)">
+        <MappingFragment StoreEntitySet="CategChelt">
+          <ScalarProperty Name="IdCategChelt" ColumnName="IdCategChelt" />
+          <ScalarProperty Name="Descriere" ColumnName="Descriere" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

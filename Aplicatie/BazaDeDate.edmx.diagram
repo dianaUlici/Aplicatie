@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f030d98773dd49adbfd1d8a2e0d0cda5" Name="Diagram1" ZoomLevel="94" >
+        <EntityTypeShape EntityType="BazaDeDate.Incasari" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="BazaDeDate.CategVenit" Width="1.5" PointX="2.625" PointY="0.5" />
+        <EntityTypeShape EntityType="BazaDeDate.LocalizareVenit" Width="1.5" PointX="4.875" PointY="0.5" />
+        <EntityTypeShape EntityType="BazaDeDate.Plati" Width="1.5" PointX="4.875" PointY="3.375" />
+        <EntityTypeShape EntityType="BazaDeDate.CategChelt" Width="1.5" PointX="0.875" PointY="3.5" />
+        <AssociationConnector Association="BazaDeDate.CategVenitIncasari" />
+        <AssociationConnector Association="BazaDeDate.CategVenitLocalizareVenit" />
+        <AssociationConnector Association="BazaDeDate.LocalizareVenitPlati" />
+        <AssociationConnector Association="BazaDeDate.CategCheltPlati" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
